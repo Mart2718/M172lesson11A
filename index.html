@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<!--
+  Math 172 — Lesson 11 (Part A): Trigonometry Basics — Foundations
+  Navigation: Sidebar (6 major sections, classroom flow)
+  Sources: SAC Lesson 11 SP26 v2 + OpenStax Algebra & Trigonometry 2e §7.1–7.4
+  Built: SAC Lecture-Web-Orchestrator
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 11A: Trig Foundations — Math 172</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+:root{
+  --teal-dark:#1a6b6b; --teal-mid:#2a8f8f; --teal-light:#e6f4f4;
+  --orange:#e07020; --orange-light:#fff3e6;
+  --navy:#1a1a2e; --white:#fff; --gray-light:#f5f5f5; --gray-mid:#ccc; --gray-text:#444;
+}
+*{box-sizing:border-box}
+body{font-family:Georgia,serif;margin:0;background:#f9f9f9;color:var(--gray-text);line-height:1.55}
+header.top{background:var(--navy);color:#fff;padding:16px 24px;display:flex;align-items:center;justify-content:space-between}
+header.top p{margin:0;font-size:12px;letter-spacing:1px;opacity:0.7;text-transform:uppercase}
+header.top h1{margin:4px 0 0;font-size:24px;font-weight:normal;font-family:Georgia,serif}
+.lo-bar{background:var(--teal-dark);color:#fff;padding:14px 24px;font-size:14px}
+.lo-bar ul{margin:6px 0 0;padding-left:22px}
+.lo-bar li{margin:2px 0}
+.layout{display:flex;min-height:calc(100vh - 140px)}
+nav.side{width:240px;background:#fff;border-right:1px solid var(--gray-mid);padding:20px 0;position:sticky;top:0;height:calc(100vh - 0px);overflow-y:auto;flex-shrink:0}
+nav.side h4{margin:0 0 10px 18px;color:var(--teal-dark);font-size:13px;letter-spacing:1px;text-transform:uppercase;font-family:Arial,sans-serif}
+nav.side a{display:block;padding:9px 18px;color:var(--gray-text);text-decoration:none;font-size:14px;border-left:3px solid transparent}
+nav.side a:hover{background:var(--teal-light);border-left-color:var(--teal-mid)}
+nav.side a.active{background:var(--teal-light);border-left-color:var(--teal-dark);color:var(--teal-dark);font-weight:bold}
+main{flex:1;padding:24px 36px;max-width:980px}
+section{padding:28px 0;border-bottom:1px solid #eee}
+section h2{color:var(--teal-dark);font-family:Georgia,serif;font-size:24px;margin-top:0;border-bottom:2px solid var(--teal-dark);padding-bottom:6px}
+.def{background:var(--teal-light);border-left:5px solid var(--teal-dark);padding:14px 18px;margin:18px 0;border-radius:0 8px 8px 0}
+.def .src{margin:0 0 4px;font-size:12px;color:#555;font-style:italic}
+.def p{margin:6px 0;font-size:16px}
+.warn{background:var(--orange-light);border-left:5px solid var(--orange);padding:12px 16px;margin:16px 0;border-radius:0 8px 8px 0}
+.warn p{margin:0;font-size:15px}
+.guess{background:#f9f9f9;border:1px solid #ddd;border-radius:8px;padding:18px;margin:20px 0}
+.guess .q{font-weight:bold;margin:0 0 10px}
+.guess input,.guess textarea{width:90%;padding:8px;font-size:14px;border:1px solid #ccc;border-radius:4px;font-family:inherit}
+.guess .reveal{display:none;margin-top:12px;padding:12px;background:var(--teal-light);border-radius:6px;font-size:15px}
+button.btn{background:var(--teal-dark);color:#fff;border:none;padding:9px 20px;border-radius:4px;cursor:pointer;font-size:14px;margin-top:10px;font-family:inherit}
+button.btn:hover{background:var(--teal-mid)}
+button.btn.orange{background:var(--orange)}
+button.btn.orange:hover{background:#c05a10}
+.example{background:#fff;border:1px solid #ddd;border-radius:8px;padding:20px;margin:20px 0;box-shadow:0 2px 6px rgba(0,0,0,0.06)}
+.example h3{color:var(--teal-dark);margin-top:0}
+.step{border-top:1px solid #eee;padding:12px 0;margin-top:8px}
+.step strong{color:var(--teal-dark)}
+.answer{background:var(--teal-light);border-left:4px solid var(--teal-dark);padding:10px 14px;margin-top:12px;border-radius:0 6px 6px 0;font-size:16px}
+.answer strong{color:var(--teal-dark)}
+table.std{width:100%;border-collapse:collapse;margin:14px 0;background:#fff}
+table.std th{background:var(--navy);color:#fff;padding:8px;text-align:left;font-family:Arial,sans-serif;font-size:14px}
+table.std td{padding:8px;border:1px solid #ddd;font-size:14px}
+.svg-fig{display:flex;justify-content:center;margin:14px 0;background:#fff;border:1px solid #ddd;border-radius:8px;padding:10px}
+#unit-circle-app{display:grid;grid-template-columns:1fr 280px;gap:14px;background:#fff;border:1px solid #ddd;border-radius:8px;padding:14px;margin:18px 0}
+#unit-circle-app .readout{font-size:14px}
+#unit-circle-app .readout p{margin:6px 0}
+.controls{margin:8px 0}
+.controls button{margin-right:6px;margin-bottom:6px;font-size:13px;padding:6px 12px}
+.exit{background:#f0f8f8;border-top:3px solid var(--teal-dark);padding:28px 24px;margin-top:40px}
+.exit h2{color:var(--teal-dark);font-size:20px;margin-top:0}
+.exit .q{margin-bottom:24px}
+.exit textarea{width:90%;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:14px;font-family:inherit}
+.feedback{display:none;margin-top:8px;padding:10px;border-radius:6px;font-size:14px}
+#stars{font-size:28px;cursor:pointer;letter-spacing:4px;user-select:none}
+footer.bot{background:var(--navy);color:#aaa;padding:14px 24px;font-size:12px;text-align:center;margin-top:48px}
+@media(max-width:780px){
+  .layout{flex-direction:column}
+  nav.side{width:100%;height:auto;position:static;border-right:none;border-bottom:1px solid var(--gray-mid)}
+  #unit-circle-app{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div>
+    <p>Math 172 — Santa Ana College</p>
+    <h1>Lesson 11A: Trigonometry Basics — Foundations</h1>
+  </div>
+  <div style="font-size:12px;opacity:0.6;text-align:right">Spring 2026 · Part A of 2</div>
+</header>
+
+<div class="lo-bar">
+  <strong>By the end of Part A you will be able to:</strong>
+  <ul>
+    <li>Use 30-60-90 and 45-45-90 triangles to determine the 6 trig ratios</li>
+    <li>Understand and use radian measure</li>
+    <li>Use the unit circle to determine the 6 trig ratios (including reciprocals)</li>
+  </ul>
+</div>
+
+<div class="layout">
+
+<nav class="side">
+  <h4>Sections</h4>
+  <a href="#s1" class="active">1. Special Triangles</a>
+  <a href="#s2">2. SOH-CAH-TOA</a>
+  <a href="#s3">3. Radian Measure</a>
+  <a href="#s4">4. The Unit Circle</a>
+  <a href="#s5">5. Evaluating Trig on the Unit Circle</a>
+  <a href="#s6">6. Reciprocal Trig Functions</a>
+  <a href="#exit">Exit Check</a>
+</nav>
+
+<main>
+
+<!-- ========== SECTION 1 ========== -->
+<section id="s1">
+  <h2>1 · Special Triangles and Their Ratios</h2>
+
+  <div class="def">
+    <p class="src">Definition — OpenStax §7.2 / SAC Notes</p>
+    <p><strong>45-45-90 Triangle:</strong> an isosceles right triangle. If each leg has length \(a\), the hypotenuse is \(a\sqrt{2}\). Side ratio \(1 : 1 : \sqrt{2}\).</p>
+    <p><strong>30-60-90 Triangle:</strong> if the short leg (opposite \(30^\circ\)) has length \(a\), the long leg is \(a\sqrt{3}\) and the hypotenuse is \(2a\). Side ratio \(1 : \sqrt{3} : 2\).</p>
+  </div>
+
+  <div class="warn">
+    <p><strong>⚠ Key Reminder:</strong> The hypotenuse is always opposite the \(90^\circ\) angle. In a 30-60-90 triangle, the side opposite \(30^\circ\) is always the shortest — use it as your base value \(a\) to scale the others.</p>
+  </div>
+
+  <div class="svg-fig">
+    <svg viewBox="0 0 460 200" width="440" height="200" aria-label="45-45-90 and 30-60-90 reference triangles">
+      <!-- 45-45-90 -->
+      <polygon points="20,170 170,170 170,20" fill="#e6f4f4" stroke="#1a6b6b" stroke-width="2"/>
+      <text x="90" y="190" font-size="13" fill="#444">a</text>
+      <text x="180" y="100" font-size="13" fill="#444">a</text>
+      <text x="80" y="90" font-size="13" fill="#444" transform="rotate(-45 80 90)">a√2</text>
+      <text x="35" y="165" font-size="11" fill="#1a6b6b">45°</text>
+      <text x="148" y="165" font-size="11" fill="#1a6b6b">90°</text>
+      <text x="158" y="38" font-size="11" fill="#1a6b6b">45°</text>
+      <!-- 30-60-90 -->
+      <polygon points="280,170 430,170 430,20" fill="#fff3e6" stroke="#e07020" stroke-width="2"/>
+      <text x="350" y="190" font-size="13" fill="#444">a√3</text>
+      <text x="440" y="100" font-size="13" fill="#444">a</text>
+      <text x="335" y="90" font-size="13" fill="#444" transform="rotate(-30 335 90)">2a</text>
+      <text x="290" y="165" font-size="11" fill="#e07020">30°</text>
+      <text x="408" y="165" font-size="11" fill="#e07020">90°</text>
+      <text x="418" y="35" font-size="11" fill="#e07020">60°</text>
+    </svg>
+  </div>
+
+  <div class="example" id="ex1">
+    <h3>Worked Example 1 — Scaling a 30-60-90</h3>
+    <p><em>Try this yourself first.</em></p>
+    <p>A 30-60-90 triangle has hypotenuse 14. Find the short leg and long leg.</p>
+    <div id="ex1-steps" style="display:none">
+      <div class="step"><strong>Step 1:</strong> Identify the side ratio. \(1 : \sqrt{3} : 2\) (short : long : hyp).</div>
+      <div class="step"><strong>Step 2:</strong> Hypotenuse is \(2a\). So \(2a = 14 \Rightarrow a = 7\).</div>
+      <div class="step"><strong>Step 3:</strong> Short leg \(= a = 7\). Long leg \(= a\sqrt{3} = 7\sqrt{3}\).</div>
+      <div class="answer"><strong>Answer:</strong> short \(=7\), long \(=7\sqrt{3}\), hyp \(=14\).</div>
+    </div>
+    <button class="btn" onclick="reveal('ex1','this')">Show Solution</button>
+  </div>
+
+  <div class="guess">
+    <p class="q">Predict: a 45-45-90 has one leg of length 7. What is the hypotenuse?</p>
+    <input type="text" placeholder="Your prediction…">
+    <br><button class="btn orange" onclick="revealNext(this)">Reveal Answer</button>
+    <div class="reveal"><strong>Answer:</strong> hyp \(= 7\sqrt{2}\). Both legs equal \(7\); multiply a leg by \(\sqrt{2}\) to get the hypotenuse.</div>
+  </div>
+</section>
+
+<!-- ========== SECTION 2 ========== -->
+<section id="s2">
+  <h2>2 · SOH-CAH-TOA — The Three Basic Ratios</h2>
+
+  <div class="def">
+    <p class="src">Definition — OpenStax §7.2</p>
+    <p>For a right triangle with acute angle \(\theta\), label sides as <strong>opposite</strong>, <strong>adjacent</strong>, and <strong>hypotenuse</strong> relative to \(\theta\).</p>
+    <p>\[\sin\theta=\frac{\text{opp}}{\text{hyp}}\qquad \cos\theta=\frac{\text{adj}}{\text{hyp}}\qquad \tan\theta=\frac{\text{opp}}{\text{adj}}\]</p>
+  </div>
+
+  <div class="warn">
+    <p><strong>Memory:</strong> <strong>SOH-CAH-TOA</strong> — <em>Sine = Opp/Hyp, Cosine = Adj/Hyp, Tangent = Opp/Adj</em>.</p>
+  </div>
+
+  <div class="example" id="ex2">
+    <h3>Worked Example 2 — 3-4-5 Triangle</h3>
+    <p>Right triangle with legs 3 (opposite \(\theta\)) and 4 (adjacent), hypotenuse 5. Find \(\sin\theta,\cos\theta,\tan\theta\).</p>
+    <div id="ex2-steps" style="display:none">
+      <div class="step"><strong>Step 1:</strong> Identify sides relative to \(\theta\): opp \(=3\), adj \(=4\), hyp \(=5\).</div>
+      <div class="step"><strong>Step 2:</strong> Apply SOH-CAH-TOA.</div>
+      <div class="answer">\(\sin\theta=\dfrac{3}{5},\ \cos\theta=\dfrac{4}{5},\ \tan\theta=\dfrac{3}{4}\)</div>
+    </div>
+    <button class="btn" onclick="reveal('ex2','this')">Show Solution</button>
+  </div>
+</section>
+
+<!-- ========== SECTION 3 ========== -->
+<section id="s3">
+  <h2>3 · Introduction to Radian Measure</h2>
+
+  <div class="def">
+    <p class="src">Definition — OpenStax §7.1</p>
+    <p><strong>Radian:</strong> the measure of a central angle of a circle that intercepts an arc equal in length to the radius of the circle. For a unit circle (\(r=1\)), the radian measure equals the arc length.</p>
+    <p><strong>Degree-Radian Bridge:</strong> \(360^\circ = 2\pi\) radians, so \(180^\circ = \pi\) radians.</p>
+  </div>
+
+  <div class="guess">
+    <p class="q">Predict: how many radians is one full revolution? Why might \(2\pi\) make sense as the answer?</p>
+    <textarea rows="2" placeholder="Type your reasoning…"></textarea>
+    <br><button class="btn orange" onclick="revealNext(this)">Reveal</button>
+    <div class="reveal"><strong>Answer:</strong> \(2\pi\) radians. The circumference of a unit circle is \(2\pi r = 2\pi\). Since 1 radian = 1 radius of arc length, walking the entire circle traces \(2\pi\) radii of arc, hence \(2\pi\) radians.</div>
+  </div>
+
+  <table class="std">
+    <thead><tr><th>Direction</th><th>Multiplier</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td>Degrees → Radians</td><td>\(\dfrac{\pi}{180^\circ}\)</td><td>\(60^\circ \cdot \dfrac{\pi}{180^\circ}=\dfrac{\pi}{3}\)</td></tr>
+      <tr><td>Radians → Degrees</td><td>\(\dfrac{180^\circ}{\pi}\)</td><td>\(\dfrac{5\pi}{4}\cdot\dfrac{180^\circ}{\pi}=225^\circ\)</td></tr>
+    </tbody>
+  </table>
+
+  <div class="example" id="ex3">
+    <h3>Worked Example 3 — Convert 275° to radians</h3>
+    <div id="ex3-steps" style="display:none">
+      <div class="step"><strong>Step 1:</strong> Multiply by \(\dfrac{\pi}{180^\circ}\).</div>
+      <div class="step"><strong>Step 2:</strong> \(275^\circ \cdot \dfrac{\pi}{180^\circ}=\dfrac{275\pi}{180}\).</div>
+      <div class="step"><strong>Step 3:</strong> Reduce: \(\gcd(275,180)=5\), so \(\dfrac{55\pi}{36}\).</div>
+      <div class="answer">\(275^\circ = \dfrac{55\pi}{36}\) radians</div>
+    </div>
+    <button class="btn" onclick="reveal('ex3','this')">Show Solution</button>
+  </div>
+
+  <div class="warn">
+    <p><strong>⚠ Common error:</strong> A student writes "\(200 \times \frac{180}{\pi}\)" to convert degrees to radians. The multiplier is reversed — to convert <em>degrees → radians</em> you multiply by \(\frac{\pi}{180}\). Correct: \(200^\circ\cdot\frac{\pi}{180}=\frac{10\pi}{9}\).</p>
+  </div>
+</section>
+
+<!-- ========== SECTION 4 ========== -->
+<section id="s4">
+  <h2>4 · The Unit Circle</h2>
+
+  <div class="def">
+    <p class="src">Definition — OpenStax §7.3</p>
+    <p><strong>Unit Circle:</strong> a circle centered at the origin with radius 1. Every point on the unit circle has coordinates \((\cos\theta,\sin\theta)\), where \(\theta\) is measured counterclockwise from the positive \(x\)-axis.</p>
+    <p><strong>Initial Side:</strong> the fixed starting ray of an angle (positive \(x\)-axis in standard position).<br>
+       <strong>Terminal Side:</strong> the ray where rotation ends after sweeping through angle \(\theta\).<br>
+       <strong>Reference Angle:</strong> the positive acute angle between the terminal side and the nearest \(x\)-axis (always between \(0^\circ\) and \(90^\circ\)).</p>
+  </div>
+
+  <div id="unit-circle-app">
+    <div>
+      <svg id="uc-svg" viewBox="-150 -150 300 300" width="100%" height="380" aria-label="Interactive unit circle">
+        <!-- axes -->
+        <line x1="-140" y1="0" x2="140" y2="0" stroke="#999" stroke-width="0.6"/>
+        <line x1="0" y1="-140" x2="0" y2="140" stroke="#999" stroke-width="0.6"/>
+        <!-- circle -->
+        <circle cx="0" cy="0" r="100" fill="none" stroke="#1a6b6b" stroke-width="1.6"/>
+        <!-- 16-spoke standard angles -->
+        <g id="uc-spokes" stroke="#bbd9d9" stroke-width="0.5"></g>
+        <!-- terminal side and point -->
+        <line id="uc-term" x1="0" y1="0" x2="100" y2="0" stroke="#e07020" stroke-width="2"/>
+        <circle id="uc-pt" cx="100" cy="0" r="5" fill="#e07020" stroke="#fff" stroke-width="1"/>
+        <text x="-145" y="-10" font-size="9" fill="#666">y</text>
+        <text x="135" y="-5" font-size="9" fill="#666">x</text>
+      </svg>
+      <div class="controls">
+        Snap to standard angle:
+        <button class="btn" data-angle="0">0</button>
+        <button class="btn" data-angle="30">30°</button>
+        <button class="btn" data-angle="45">45°</button>
+        <button class="btn" data-angle="60">60°</button>
+        <button class="btn" data-angle="90">90°</button>
+        <button class="btn" data-angle="120">120°</button>
+        <button class="btn" data-angle="135">135°</button>
+        <button class="btn" data-angle="150">150°</button>
+        <button class="btn" data-angle="180">180°</button>
+        <button class="btn" data-angle="210">210°</button>
+        <button class="btn" data-angle="225">225°</button>
+        <button class="btn" data-angle="240">240°</button>
+        <button class="btn" data-angle="270">270°</button>
+        <button class="btn" data-angle="300">300°</button>
+        <button class="btn" data-angle="315">315°</button>
+        <button class="btn" data-angle="330">330°</button>
+      </div>
+      <p style="font-size:13px;color:#666;font-style:italic;margin:6px 0 0">Tip: drag the orange point around the circle to explore.</p>
+    </div>
+    <div class="readout">
+      <p><strong>Angle:</strong> <span id="uc-deg">0</span>° = <span id="uc-rad">0</span></p>
+      <p><strong>Quadrant:</strong> <span id="uc-quad">Axis</span></p>
+      <p><strong>Reference angle:</strong> <span id="uc-ref">0</span>°</p>
+      <p><strong>(cos θ, sin θ):</strong> (<span id="uc-cos">1</span>, <span id="uc-sin">0</span>)</p>
+      <p><strong>tan θ:</strong> <span id="uc-tan">0</span></p>
+      <p><strong>ASTC sign:</strong> <span id="uc-astc">All +</span></p>
+    </div>
+  </div>
+
+  <div class="warn">
+    <p><strong>ASTC Quadrant Sign Rule:</strong> All positive (Q1) | Sine positive (Q2) | Tangent positive (Q3) | Cosine positive (Q4). Always check the quadrant before assigning signs.</p>
+  </div>
+</section>
+
+<!-- ========== SECTION 5 ========== -->
+<section id="s5">
+  <h2>5 · Evaluating Trig on the Unit Circle</h2>
+
+  <div class="def">
+    <p class="src">Definition — OpenStax §7.3</p>
+    <p>For any angle \(\theta\), the terminal point on the unit circle gives</p>
+    <p>\[x=\cos\theta,\quad y=\sin\theta,\quad \tan\theta=\dfrac{\sin\theta}{\cos\theta}=\dfrac{y}{x}.\]</p>
+    <p><strong>Special-triangle lengths:</strong> short \(=\dfrac{1}{2}\) (30°), middle \(=\dfrac{\sqrt{2}}{2}\) (45°), long \(=\dfrac{\sqrt{3}}{2}\) (60°).</p>
+  </div>
+
+  <div class="example" id="ex4">
+    <h3>Worked Example 4 — Evaluate at \(7\pi/6\)</h3>
+    <p>Find \(\sin\theta,\cos\theta,\tan\theta\) for \(\theta=\dfrac{7\pi}{6}\).</p>
+    <div id="ex4-steps" style="display:none">
+      <div class="step"><strong>Step 1:</strong> Convert: \(\dfrac{7\pi}{6}\cdot\dfrac{180}{\pi}=210^\circ\). Quadrant III.</div>
+      <div class="step"><strong>Step 2:</strong> Reference angle \(=210^\circ-180^\circ=30^\circ\).</div>
+      <div class="step"><strong>Step 3:</strong> 30° values: short on \(y\) is \(\frac{1}{2}\); long on \(x\) is \(\frac{\sqrt{3}}{2}\). In QIII both are negative.</div>
+      <div class="answer">\(\sin\theta=-\dfrac{1}{2},\ \cos\theta=-\dfrac{\sqrt{3}}{2},\ \tan\theta=\dfrac{1}{\sqrt{3}}=\dfrac{\sqrt{3}}{3}\)</div>
+    </div>
+    <button class="btn" onclick="reveal('ex4','this')">Show Solution</button>
+  </div>
+
+  <div class="guess">
+    <p class="q">Predict the sign of \(\sin(275^\circ)\) before computing. In which quadrant is \(275^\circ\)?</p>
+    <input type="text" placeholder="Sign / quadrant…">
+    <br><button class="btn orange" onclick="revealNext(this)">Reveal</button>
+    <div class="reveal"><strong>Answer:</strong> Quadrant IV. In QIV, sine is negative — so \(\sin(275^\circ)\) is <em>negative</em>. (Reference angle \(=360^\circ-275^\circ=85^\circ\), but exact value isn't a special angle — so it's left as \(\sin(275^\circ)\).)</div>
+  </div>
+</section>
+
+<!-- ========== SECTION 6 ========== -->
+<section id="s6">
+  <h2>6 · Reciprocal Trigonometric Functions</h2>
+
+  <div class="def">
+    <p class="src">Definition — OpenStax §7.4</p>
+    <p>Three additional functions are defined as reciprocals:</p>
+    <p>\[\csc\theta=\dfrac{\text{hyp}}{\text{opp}}=\dfrac{1}{\sin\theta}=\dfrac{1}{y}\]</p>
+    <p>\[\sec\theta=\dfrac{\text{hyp}}{\text{adj}}=\dfrac{1}{\cos\theta}=\dfrac{1}{x}\]</p>
+    <p>\[\cot\theta=\dfrac{\text{adj}}{\text{opp}}=\dfrac{1}{\tan\theta}=\dfrac{x}{y}\]</p>
+  </div>
+
+  <div class="warn">
+    <p><strong>⚠ Undefined values:</strong> \(\csc\theta\) is undefined when \(\sin\theta=0\) (at \(0^\circ,180^\circ,360^\circ\)). \(\sec\theta\) is undefined when \(\cos\theta=0\) (at \(90^\circ,270^\circ\)). Always check the denominator before computing.</p>
+  </div>
+
+  <div class="example" id="ex5">
+    <h3>Worked Example 5 — Reciprocals at \(7\pi/6\)</h3>
+    <p>From Example 4: \(\sin = -\frac{1}{2},\ \cos=-\frac{\sqrt{3}}{2},\ \tan=\frac{\sqrt{3}}{3}\). Find \(\csc,\sec,\cot\).</p>
+    <div id="ex5-steps" style="display:none">
+      <div class="step"><strong>Step 1:</strong> \(\csc\theta=\dfrac{1}{\sin\theta}=\dfrac{1}{-1/2}=-2\).</div>
+      <div class="step"><strong>Step 2:</strong> \(\sec\theta=\dfrac{1}{\cos\theta}=\dfrac{1}{-\sqrt{3}/2}=-\dfrac{2}{\sqrt{3}}=-\dfrac{2\sqrt{3}}{3}\).</div>
+      <div class="step"><strong>Step 3:</strong> \(\cot\theta=\dfrac{1}{\tan\theta}=\dfrac{3}{\sqrt{3}}=\sqrt{3}\).</div>
+      <div class="answer">\(\csc=-2,\ \sec=-\dfrac{2\sqrt{3}}{3},\ \cot=\sqrt{3}\)</div>
+    </div>
+    <button class="btn" onclick="reveal('ex5','this')">Show Solution</button>
+  </div>
+</section>
+
+<!-- ========== EXIT CHECK ========== -->
+<section class="exit" id="exit">
+  <h2>📋 Exit Check — Lesson 11A</h2>
+
+  <div class="q">
+    <p style="font-weight:bold">Q1. In a 30-60-90 triangle, the short leg is \(5\). What is the hypotenuse?</p>
+    <label><input type="radio" name="q1" value="a"> (A) \(5\sqrt{3}\)</label><br>
+    <label><input type="radio" name="q1" value="b"> (B) \(10\)</label><br>
+    <label><input type="radio" name="q1" value="c"> (C) \(5\sqrt{2}\)</label><br>
+    <button class="btn" onclick="checkMC('q1','b','Hypotenuse is 2a, where a is the short leg, so 2·5 = 10.')">Check</button>
+    <div id="q1-feedback" class="feedback"></div>
+  </div>
+
+  <div class="q">
+    <p style="font-weight:bold">Q2. \(\dfrac{4\pi}{3}\) in degrees is:</p>
+    <label><input type="radio" name="q2" value="a"> (A) \(180^\circ\)</label><br>
+    <label><input type="radio" name="q2" value="b"> (B) \(240^\circ\)</label><br>
+    <label><input type="radio" name="q2" value="c"> (C) \(270^\circ\)</label><br>
+    <button class="btn" onclick="checkMC('q2','b','4π/3 · 180°/π = 4·180/3 = 240°.')">Check</button>
+    <div id="q2-feedback" class="feedback"></div>
+  </div>
+
+  <div class="q">
+    <p style="font-weight:bold">Q3 (short answer). Explain in your own words why \(\sec\theta\) is undefined at \(\theta=90^\circ\).</p>
+    <textarea rows="3"></textarea><br>
+    <button class="btn orange" onclick="revealNext(this)">See Model Answer</button>
+    <div class="reveal" style="display:none;background:#e6f4f4;padding:12px;border-radius:6px;margin-top:8px"><strong>Model:</strong> \(\sec\theta=1/\cos\theta\). At \(90^\circ\), \(\cos90^\circ=0\), so \(1/0\) is undefined. Geometrically: the terminal side is straight up the y-axis, so the x-coordinate (\(\cos\theta\)) is zero — there's no horizontal "adjacent" to divide the radius by.</div>
+  </div>
+
+  <div class="q">
+    <p style="font-weight:bold">Confidence on today's three objectives:</p>
+    <div id="stars">☆☆☆☆☆</div>
+    <p id="star-label" style="font-size:13px;color:#888;margin:4px 0 0"></p>
+  </div>
+</section>
+
+</main>
+</div>
+
+<footer class="bot">Math 172 &nbsp;|&nbsp; Lesson 11A: Trig Foundations &nbsp;|&nbsp; Santa Ana College &nbsp;|&nbsp; Built for SAC</footer>
+
+<script>
+function reveal(id, btn){
+  document.getElementById(id+'-steps').style.display='block';
+  if(btn && btn.tagName) btn.style.display='none';
+  if(typeof event!=='undefined' && event && event.target) event.target.style.display='none';
+}
+function revealNext(btn){
+  const r=btn.parentElement.querySelector('.reveal');
+  if(r){r.style.display='block'; btn.style.display='none';}
+}
+function checkMC(name, correct, exp){
+  const sel=document.querySelector('input[name="'+name+'"]:checked');
+  const fb=document.getElementById(name+'-feedback');
+  fb.style.display='block';
+  if(!sel){ fb.style.background='#fff3e6'; fb.textContent='Select an answer first.'; return; }
+  if(sel.value===correct){ fb.style.background='#e6f4f4'; fb.style.color='#1a6b6b'; fb.innerHTML='✅ Correct! '+exp; }
+  else{ fb.style.background='#fdecea'; fb.style.color='#c0392b'; fb.innerHTML='❌ Not quite. '+exp; }
+  if(window.renderMathInElement) renderMathInElement(fb);
+}
+// Stars
+const starLabels=['','Still confused','Somewhat unsure','Mostly got it','Confident','Very confident'];
+const stEl=document.getElementById('stars');
+if(stEl){ stEl.addEventListener('click', function(e){
+  const r=this.getBoundingClientRect();
+  const x=e.clientX-r.left;
+  const sw=r.width/5;
+  const rating=Math.max(1, Math.min(5, Math.ceil(x/sw)));
+  this.textContent='★'.repeat(rating)+'☆'.repeat(5-rating);
+  document.getElementById('star-label').textContent=starLabels[rating]||'';
+});}
+// Sidebar active state on scroll
+const links=document.querySelectorAll('nav.side a');
+const sections=Array.from(document.querySelectorAll('section'));
+window.addEventListener('scroll', ()=>{
+  let cur=sections[0].id;
+  sections.forEach(s=>{ if(window.scrollY+120>=s.offsetTop) cur=s.id; });
+  links.forEach(a=>a.classList.toggle('active', a.getAttribute('href')==='#'+cur));
+});
+
+// === Interactive Unit Circle ===
+(function(){
+  const svg=document.getElementById('uc-svg');
+  if(!svg) return;
+  const term=document.getElementById('uc-term');
+  const pt=document.getElementById('uc-pt');
+  const spokesG=document.getElementById('uc-spokes');
+  const R=100;
+  // 16 spokes at 0,30,45,60,90,...
+  const standardDeg=[0,30,45,60,90,120,135,150,180,210,225,240,270,300,315,330];
+  standardDeg.forEach(d=>{
+    const r=d*Math.PI/180;
+    const x=R*Math.cos(r), y=-R*Math.sin(r);
+    const ln=document.createElementNS('http://www.w3.org/2000/svg','line');
+    ln.setAttribute('x1',0); ln.setAttribute('y1',0);
+    ln.setAttribute('x2',x); ln.setAttribute('y2',y);
+    spokesG.appendChild(ln);
+  });
+  function fmtRad(deg){
+    const map={0:'0',30:'π/6',45:'π/4',60:'π/3',90:'π/2',120:'2π/3',135:'3π/4',150:'5π/6',
+      180:'π',210:'7π/6',225:'5π/4',240:'4π/3',270:'3π/2',300:'5π/3',315:'7π/4',330:'11π/6'};
+    if(map[deg]!==undefined) return map[deg];
+    const v=(deg*Math.PI/180);
+    return v.toFixed(3);
+  }
+  function quadrant(deg){
+    deg=((deg%360)+360)%360;
+    if(deg===0||deg===180) return 'x-axis';
+    if(deg===90||deg===270) return 'y-axis';
+    if(deg<90) return 'I (All +)';
+    if(deg<180) return 'II (Sin +)';
+    if(deg<270) return 'III (Tan +)';
+    return 'IV (Cos +)';
+  }
+  function refAngle(deg){
+    deg=((deg%360)+360)%360;
+    if(deg<=90) return deg;
+    if(deg<=180) return 180-deg;
+    if(deg<=270) return deg-180;
+    return 360-deg;
+  }
+  function fmtSpecial(v){
+    // Try recognizing common values
+    const eps=0.001;
+    const named=[[0,'0'],[1,'1'],[-1,'-1'],[0.5,'1/2'],[-0.5,'-1/2'],
+      [Math.SQRT2/2,'√2/2'],[-Math.SQRT2/2,'-√2/2'],
+      [Math.sqrt(3)/2,'√3/2'],[-Math.sqrt(3)/2,'-√3/2'],
+      [Math.sqrt(3)/3,'√3/3'],[-Math.sqrt(3)/3,'-√3/3'],
+      [Math.sqrt(3),'√3'],[-Math.sqrt(3),'-√3']];
+    for(const [n,s] of named) if(Math.abs(v-n)<eps) return s;
+    return v.toFixed(3);
+  }
+  function update(deg){
+    deg=Math.round(deg*1000)/1000;
+    const r=deg*Math.PI/180;
+    const x=R*Math.cos(r), y=-R*Math.sin(r);
+    term.setAttribute('x2',x); term.setAttribute('y2',y);
+    pt.setAttribute('cx',x); pt.setAttribute('cy',y);
+    document.getElementById('uc-deg').textContent=Math.round(deg);
+    document.getElementById('uc-rad').textContent=fmtRad(Math.round(deg));
+    document.getElementById('uc-quad').textContent=quadrant(Math.round(deg));
+    document.getElementById('uc-ref').textContent=refAngle(Math.round(deg));
+    document.getElementById('uc-cos').textContent=fmtSpecial(Math.cos(r));
+    document.getElementById('uc-sin').textContent=fmtSpecial(Math.sin(r));
+    const c=Math.cos(r), s=Math.sin(r);
+    document.getElementById('uc-tan').textContent=Math.abs(c)<0.0001?'undefined':fmtSpecial(s/c);
+    document.getElementById('uc-astc').textContent=quadrant(Math.round(deg));
+  }
+  // Drag handler
+  let dragging=false;
+  function svgPt(evt){
+    const r=svg.getBoundingClientRect();
+    const cx=(evt.clientX||(evt.touches&&evt.touches[0].clientX))-r.left;
+    const cy=(evt.clientY||(evt.touches&&evt.touches[0].clientY))-r.top;
+    const sx=(cx/r.width)*300-150;
+    const sy=(cy/r.height)*300-150;
+    return {x:sx, y:sy};
+  }
+  function angleFromXY(p){
+    let deg=Math.atan2(-p.y, p.x)*180/Math.PI;
+    if(deg<0) deg+=360;
+    return deg;
+  }
+  pt.addEventListener('mousedown', e=>{dragging=true; e.preventDefault();});
+  pt.addEventListener('touchstart', e=>{dragging=true; e.preventDefault();});
+  window.addEventListener('mousemove', e=>{ if(!dragging) return; update(angleFromXY(svgPt(e))); });
+  window.addEventListener('touchmove', e=>{ if(!dragging) return; update(angleFromXY(svgPt(e))); });
+  window.addEventListener('mouseup', ()=>dragging=false);
+  window.addEventListener('touchend', ()=>dragging=false);
+  // Snap buttons
+  document.querySelectorAll('#unit-circle-app .controls button').forEach(b=>{
+    b.addEventListener('click', ()=>update(parseFloat(b.dataset.angle)));
+  });
+  update(0);
+})();
+
+// KaTeX render
+document.addEventListener("DOMContentLoaded", function(){
+  if(window.renderMathInElement){
+    renderMathInElement(document.body, {
+      delimiters:[
+        {left:"\\[",right:"\\]",display:true},
+        {left:"\\(",right:"\\)",inline:true}
+      ]
+    });
+  }
+});
+</script>
+</body>
+</html>
